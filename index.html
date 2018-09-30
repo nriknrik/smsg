@@ -12,8 +12,7 @@ table, th, td {
 	<select onchange="yesnoCheck(this);">
 	<option value='other'>SELECT TYPE TEMPLATE</option>
 	<option value='button'>BUTTON</option>
-	<option value='confirm'>CONFIRM</option>
-	<option value='carousel'>CAROUSEL</option>
+	<option value='footer'>FOOTER</option>
 	<option value='image_carousel'>IMAGE CAROUSEL</option>
 	</select>
 	
@@ -34,22 +33,15 @@ table, th, td {
 	</div>
 	
 	
-	<div id='confirm'>
+	<div id='footer'>
 	<br>
 	<table style="width:80%">
-	<tr><td><label>altText</label></td><td><input id='confirm_altText' value='Confirm Template'></td></tr>
-	<tr><td><label>text</label></td><td><input id='confirm_text' value='Apa Benar Kamu Pelakunya??'></td></tr>
+	<tr><td><label>altText</label></td><td><input id='footer_text' value='Hai Hai Hai'></td></tr>
+	<tr><td><label>thumbnailImageUrl</label></td><td><input id='footer_label' value='ini  Footer'></td></tr>
+	<tr><td><label>title</label></td><td><input id='footer_icon' value='https://i.ebayimg.com/images/g/5Q8AAOSwPCVX9Moo/s-l300.jpg'></td></tr>
+	<tr><td><label>title</label></td><td><input id='footer_url' value='http://line.me/ti/p/~nrik.'></td></tr>	
 	</table>
-	<button id='confirm_send'>SEND</button>
-	</div>
-	
-	
-	<div id='carousel'>
-	<br>
-	<table style="width:80%">
-	Progress
-	</table>
-	<button id='carousel_send'>SEND</button>
+	<button id='footer_send'>SEND</button>
 	</div>
 	
 	
@@ -70,46 +62,33 @@ table, th, td {
 	<button id='image_carousel_send'>SEND</button>
 	</div>
 	
-	
-	<script>
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <script>
+	liff.init();
 	document.getElementById("button").style.display = "none";
-	document.getElementById("confirm").style.display = "none";
-	document.getElementById("carousel").style.display = "none";
+	document.getElementById("footer").style.display = "none";
 	document.getElementById("image_carousel").style.display = "none";
     function yesnoCheck(that) {
         if (that.value == "button") {
             document.getElementById("button").style.display = "block";
-			document.getElementById("confirm").style.display = "none";
-			document.getElementById("carousel").style.display = "none";
+			document.getElementById("footer").style.display = "none";
 			document.getElementById("image_carousel").style.display = "none";
-        } else if (that.value == "confirm") {
+        } else if (that.value == "footer") {
             document.getElementById("button").style.display = "none";
-			document.getElementById("confirm").style.display = "block";
-			document.getElementById("carousel").style.display = "none";
+			document.getElementById("footer").style.display = "block";
 			document.getElementById("image_carousel").style.display = "none";
-        } else if (that.value == "carousel") {
+        } else if (that.value == "image_carousel") {
             document.getElementById("button").style.display = "none";
-			document.getElementById("confirm").style.display = "none";
-			document.getElementById("carousel").style.display = "block";
-			document.getElementById("image_carousel").style.display = "none";
-		} else if (that.value == "image_carousel") {
-            document.getElementById("button").style.display = "none";
-			document.getElementById("confirm").style.display = "none";
-			document.getElementById("carousel").style.display = "none";
+			document.getElementById("footer").style.display = "none";
 			document.getElementById("image_carousel").style.display = "block";
-		} else {
+	} else {
 			document.getElementById("button").style.display = "none";
-			document.getElementById("confirm").style.display = "none";
-			document.getElementById("carousel").style.display = "none";
+			document.getElementById("footer").style.display = "none";
 			document.getElementById("image_carousel").style.display = "none";
 		}
-    }
+    	}
 	</script>
-	
-	
-    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
     <script>
-	liff.init();
 	document.getElementById('button_send').addEventListener('click', function () {
         liff.sendMessages([{
 			type: "template",
@@ -138,26 +117,15 @@ table, th, td {
 		});
 	});
 	
-	document.getElementById('confirm_send').addEventListener('click', function () {
+	document.getElementById('footer_send').addEventListener('click', function () {
         liff.sendMessages([{
-			type: "template",
-			altText: document.getElementById('confirm_altText').value,
-			template: {
-				type: "confirm",
-				text: document.getElementById('confirm_text').value,
-				actions: [
-					{
-					type: "message",
-					label: "Yes",
-					text: "yes"
-					},
-					{
-					type: "message",
-					label: "No",
-					text: "no"
-					}
-				]
-			}
+			type: "text",
+			text: document.getElementById('footer_text').value,
+			sendBy: {
+				label: document.getElementById('footer_label').value,
+				iconUrl: document.getElementById('footer_icon').value,
+				linkUrl: document.getElementById('footer_url').value
+				}
 		}]).then(function () {
             liff.closeWindow();
 		});
